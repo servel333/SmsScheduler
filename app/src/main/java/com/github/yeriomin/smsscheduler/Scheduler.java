@@ -63,7 +63,7 @@ public class Scheduler {
             context,
             (int) (timestampCreated / 1000L),
             intent,
-            PendingIntent.FLAG_UPDATE_CURRENT & Intent.FILL_IN_DATA
+            PendingIntent.FLAG_UPDATE_CURRENT
         );
     }
 }

@@ -1,15 +1,24 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion "26.0.0"
+    namespace "com.github.yeriomin.smsscheduler"
+    compileSdkVersion 34
 
     defaultConfig {
         applicationId "com.github.yeriomin.smsscheduler"
-        minSdkVersion 5
-        targetSdkVersion 26
+        minSdkVersion 21
+        targetSdkVersion 30
         versionCode 5
         versionName "0.5"
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    buildFeatures {
+        buildConfig true
     }
 
     lintOptions {

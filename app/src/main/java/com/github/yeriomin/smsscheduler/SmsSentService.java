@@ -5,6 +5,7 @@ import android.app.Notification;
 import android.content.Context;
 import android.content.Intent;
 import android.telephony.SmsManager;
+import android.text.TextUtils;
 import android.util.Log;
 
 import com.github.yeriomin.smsscheduler.activity.SmsListActivity;
@@ -60,6 +61,14 @@ public class SmsSentService extends SmsIntentService {
         if (errorId.length() > 0) {
             sms.setResult(errorId);
             message = getString(R.string.notification_message_failure, sms.getRecipientName(), errorString);
+        }
+        // For recurring sms, SmsSenderService has already advanced this row to the next
+        // occurrence and saved it as PENDING before this "sent" callback arrives. Since a
+        // recurring sms reuses the same row, don't clobber that pending next occurrence
+        // with this send's outcome.
+        boolean recurring = !TextUtils.isEmpty(sms.getRecurringMode()) && !sms.getRecurringMode().equals(CalendarResolver.RECURRING_NO);
+        if (recurring && sms.getTimestampScheduled() > System.currentTimeMillis()) {
+            sms.setStatus(SmsModel.STATUS_PENDING);
         }
         DbHelper.getDbHelper(this).save(sms);
         notify(this, title, message, sms.getId());

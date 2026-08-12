@@ -60,10 +60,8 @@ public class AddSmsActivity extends Activity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menu_settings:
-                startActivityForResult(new Intent(this, SmsSchedulerPreferenceActivity.class), 1);
-                break;
+        if (item.getItemId() == R.id.menu_settings) {
+            startActivityForResult(new Intent(this, SmsSchedulerPreferenceActivity.class), 1);
         }
         return true;
     }
