@@ -31,4 +31,7 @@ proguard/
 .DS_Store
 /captures
 /.idea
-/gradle*
+
+# Gradle wrapper jar/scripts ARE committed on purpose (so builds don't
+# need a preinstalled Gradle); only ignore the version-specific download.
+/gradle/wrapper/dists/
